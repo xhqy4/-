@@ -116,42 +116,11 @@
             50% { opacity: 0.3; }
             100% { opacity: 1; }
         }
-        /* 在<style>标签中添加媒体查询 */
-@media screen and (max-width: 768px) {
-    #viewport {
-        width: 100vw;
-        height: 100vh;
-    }
-    
-    #player {
-        font-size: 60px;
-    }
-    
-    /* 添加虚拟控制按钮 */
-    .mobile-controls {
-        position: fixed;
-        bottom: 20px;
-        width: 100%;
-        display: flex;
-        justify-content: space-around;
-    }
-    
-    .sprint-btn {
-        padding: 15px 30px;
-        font-size: 20px;
-        background: rgba(255,255,255,0.3);
-        border-radius: 10px;
-    }
-}
         </style>
         </head>
         <body>
             <!-- 在 <div id="viewport"> 内添加进度条元素 -->
             <div id="viewport">
-                <!-- 在viewport div内添加移动控制 -->
-<div class="mobile-controls">
-    <button class="sprint-btn" ontouchstart="startSprint()">冲刺</button>
-</div>
                 <div id="game-container">
                     <div id="player">🛸</div>
                 </div>
@@ -169,7 +138,6 @@
                 <button id="restart-button" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 10px 20px; font-size: 20px;">重新开始</button>
             </div>
             <script>
-                
                 const player = document.getElementById('player');
                 const scoreElement = document.getElementById('score');
                 const viewport = document.getElementById('viewport');
@@ -187,9 +155,9 @@
                 // 新增陨石数组
                 const asteroids = [];
                 // 增加陨石数量到 50
-                const asteroidCount = 20;
+                const asteroidCount = 50;
                 // 新增：最大移动速度
-                const maxAsteroidSpeed = 3;
+                const maxAsteroidSpeed = 2;
                 const keys = {
                     ArrowUp: false,
                     ArrowDown: false,
@@ -259,40 +227,6 @@
                     }
                 });
 
-                // 在按键事件监听器后添加触摸事件
-let touchStartX = 0;
-let touchStartY = 0;
-let touchMoveX = 0;
-let touchMoveY = 0;
-
-// 添加触摸事件监听
-document.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    touchStartX = touch.clientX;
-    touchStartY = touch.clientY;
-});
-
-document.addEventListener('touchmove', (e) => {
-    e.preventDefault();
-    const touch = e.touches[0];
-    touchMoveX = touch.clientX - touchStartX;
-    touchMoveY = touch.clientY - touchStartY;
-    
-    // 根据移动方向控制飞船
-    keys.ArrowLeft = touchMoveX < -30;
-    keys.ArrowRight = touchMoveX > 30;
-    keys.ArrowUp = touchMoveY < -30;
-    keys.ArrowDown = touchMoveY > 30;
-});
-
-document.addEventListener('touchend', () => {
-    keys.ArrowLeft = false;
-    keys.ArrowRight = false;
-    keys.ArrowUp = false;
-    keys.ArrowDown = false;
-});
-// ... existing code ...
                 document.addEventListener('keyup', (e) => {
                     if (keys.hasOwnProperty(e.key)) {
                         keys[e.key] = false;
